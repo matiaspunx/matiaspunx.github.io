@@ -22,15 +22,7 @@ header h1 {
 nav {
 text-align: center;
 }
-nav ul {
-  list-style: none;
-  padding: 0;
-  /* display: flex;
-  justify-content: center; */
-}
-nav ul li {
-  display: inline-block;
-}
+
 nav a:link, nav a:visited {
   text-decoration: none;
 }
@@ -50,19 +42,38 @@ nav img {
 .parrafo {
   text-align: center;
   padding: 16px;
+  max-width: 500px;
+  margin: 32px auto;
+  background-color: rgba(0, 0, 0, .25);
+  border-radius: 16px;
 }
+
+.parrafo p {
+  color: rgba(0, 0, 0, .5);
+  line-height: 22px;
+}
+
 
 .botones {
   text-align: center;
 }
-.botones ul {
+
+/* .botones ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 .botones li {
   margin: 16px 0;
+} */
+
+.botones nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
+
 .botones a:link, .botones a:visited {
   background-color:#fff;
   padding: 16px;

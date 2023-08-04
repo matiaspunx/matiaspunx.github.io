@@ -1,0 +1,13 @@
+.btn-nuevo {
+  background-color: rebeccapurple;
+  color: white;
+}
+.btn-nuevo:hover {
+  background-color: #4d2e7a;
+  color: white;
+}
+
+.miborder {
+  border: 1px solid rebeccapurple;
+  border-radius: 5px;
+}
