@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tareas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    .done {
+      text-decoration: line-through;
+    }
+
+    .done label {
+      text-decoration: line-through;
+      color: #999
+    }
+
+    input[type="checkbox"] {
+      pointer-events: none;
+    }
+
+    .border-radius-100 {
+      border-radius: 100%;
+    }
+
+    .btn-circle {
+      width: 36px;
+      height: 36px;
+      line-height: 1;
+      padding: 0 0 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-6">
+
+        <div class="mb-4 bg-body-tertiary rounded-3">
+          <h1 class="display-5 fw-bold text-primary">Mis tareas</h1>
+          <p class="colfs-4">App para organizar tus tareas del día</p>
+        </div>
+
+        <form action="#" id="form">
+          <div>
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp">
+            <div id="nombreHelp" class="form-text">Escribí tu nombre</div>
+          </div>
+        </form>
+
+        <div class="mt-5 mb-4 p-4 bg-body-secondary border-1 rounded-3 d-none" id="message-container">
+          <div class="d-flex align-items-start">
+            <div id="message" class="flex-grow-1"></div>
+            <button class="btn btn-primary border-radius-100 btn-circle" id="dismiss">x</button>
+          </div>
+        </div>
+
+        <h2 class="my-5">Lista de tareas</h2>
+
+        <ul class="list-group" id="tareas">
+          <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="task1">
+            <label class="form-check-label">Lavar la ropa</label>
+          </li>
+          <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="task2">
+            <label class="form-check-label">Limpiar el cuarto</label>
+          </li>
+          <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="task3">
+            <label class="form-check-label">Organizar el escritorio</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // form donde guardo el nombre
+    const form = document.querySelector('#form')
+
+    // guardamos en una constante el nombre del usuario que tomamos del input
+    const name = document.querySelector('#nombre')
+    const number = document.querySelector('#number')
+
+    // buscamos todos los items de la lista de tareas en el DOM y los guardamos en una constante.
+    const tasks = document.querySelectorAll('.list-group-item')
+
+    // buscamos el botón de borrar mensaje en el DOM y lo guardamos en una constante.
+    const dismiss = document.querySelector('#dismiss')
+
+    // buscamos el div de mensaje en el DOM y lo guardamos en una constante.
+    const message = document.querySelector('#message')
+    const message_container = document.querySelector('#message-container')
+
+    // cancelo el envío del formulario
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+    })
+
+    // recorremos todos los items de la lista de tareas y les asignamos un evento "click", que al hacer click en el item, le agrega la clase "done".
+    tasks.forEach(task => {
+      task.addEventListener('click', () => {
+        // revisamos si la persona ingresó su nombre
+        if (name.value !== '') {
+          message_container.classList.add('d-none')
+          task.classList.toggle('done')
+
+          // buscamos los input checkbox dentro de cada item de la lista de tareas y le cambiamos el estado de "checked" por el contrario del que tiene.
+          const input = task.querySelector('input')
+          input.checked = !input.checked
+
+
+          //obtengo el nombre de la tarea
+          const label = task.querySelector('label')
+          const taskName = label.innerText
+
+          // llamo a la función que alerta al usuario
+          alertUser(name.value, taskName, input.checked)
+        } else {
+          alert('Por favor, ingresá tu nombre')
+        }
+      })
+    })
+
+    // create function to alert user when a task is finished
+    function alertUser (name, taskName, state) {
+      // primer  intento: lanzo un alert para avisarle al usuario que ya completó la tarea
+      //alert(`¡${name}! ¡Terminaste ${taskName}!`)
+
+
+      // segundo intento: obtengo el dia que contiene el mensaje, le agrego el menaje y muestro en el DOM
+      if (state) {
+
+        // creo el template del mensaje
+        const template = `
+        <h2 class="display-5 text-primary">Bien, ${name}</h2>
+        <p class="colfs-4">Completaste la tarea: <strong>${taskName}</strong></p>
+      `
+        // agrego el template al mensaje
+        message.innerHTML = template
+
+        // muestro el mensaje
+        message_container.classList.remove('d-none')
+
+      }
+    }
+
+    // asignamos un evento "click" al botón de borrar mensaje, que al hacer click, oculta el mensaje.
+    dismiss.addEventListener('click', () => {
+      const message_container = document.querySelector('#message-container')
+      message_container.classList.add('d-none')
+    })
+  </script>
+
+</body>
+
+</html>
