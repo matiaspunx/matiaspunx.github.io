@@ -51,7 +51,6 @@
 </head>
 
 <body>
-
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-6">
@@ -97,7 +96,6 @@
   </div>
 
   <script>
-
     // form donde guardo el nombre
     const form = document.querySelector('#form')
 
@@ -145,6 +143,8 @@
 
           // llamo a la función que alerta al usuario
           alertUser(name.value, taskName, input.checked)
+          // llamo también a la función que valida si todos los checkboxes están chequeados
+          validateAllChecked(name.value, taskName, input.checked)
         } else {
           name.focus()
           name.classList.add('error')
@@ -153,6 +153,39 @@
         }
       })
     })
+
+    // una función para validar si todos los checkboxes están chequeados
+    function validateAllChecked (name, taskName, state) {
+      // obtenemos todos los checkboxes
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+
+      // creamos una variable para guardar el número de checkboxes chequeados
+      let checked = 0
+
+      // recorremos todos los checkboxes
+      checkboxes.forEach(checkbox => {
+        // si el checkbox está chequeado, le sumamos 1 a la variable
+        if (checkbox.checked) {
+          checked++
+        }
+      })
+
+      // si el numero de checkboxes chequeados es igual al numero de checkboxes, devolvemos true
+      if (checked === checkboxes.length) {
+        console.log('all checked')
+        const template = `
+        <h2 class="display-5 text-primary">Bien, ${name}</h2>
+        <p class="colfs-4">Completaste la tarea: <strong>${taskName}</strong> y con esa completaste todas las tareas <strong>¡Que genial!</strong></p>
+      `
+        // agrego el template al mensaje final con la ultima tarea que completó y el mensaje de todas completas...
+        message.innerHTML = template
+
+        // muestro el mensaje
+        message_container.classList.remove('d-none')
+      } else {
+        console.log('Todavía quedan tareas por terminar...')
+      }
+    }
 
     // create function to alert user when a task is finished
     function alertUser (name, taskName, state) {
