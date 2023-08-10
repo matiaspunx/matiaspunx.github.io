@@ -1,0 +1,26 @@
+{
+  "manifest_version": 1,
+  "name": "📱Tareapp",
+  "short_name": "TAPP",
+  "description": "Add the Tareapp to Chrome Extension documentation articles",
+  "version": "1.0",
+  "theme_color": "#9013fe",
+  "background_color": "#9013fe",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "img/icon.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
