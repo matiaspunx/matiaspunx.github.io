@@ -3,23 +3,28 @@ const taskList = document.querySelector('.collection');
 const addTask = document.querySelector('#addTask');
 const filtro = document.querySelector('#filtro');
 
+// obtengo las tareas del local storage o un array vacio
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
+// le agrego un evento click al boton de agregar tarea
 addTask.addEventListener('click', () => {
   form.classList.toggle('d-none');
 });
 
+// le agrego un evento submit al formulario y ejecuto la funcion saveTask
+form.addEventListener('submit', saveTask);
+
+// le agrego un evento change al select de filtros
 filtro.addEventListener('change', filterTasks);
 
-
 function filterTasks (e) {
-  // obtengo una clase del select
+  // obtengo una clase desde el select de filtros
   const text = e.target.value;
   console.log(text)
 
   // obtengo todas las tareas
   const tasks = document.querySelectorAll('.task');
-  console.log(tasks)
+
   // ahora solo dejo visibles las que coinciden con el filtro
   tasks.forEach((task) => {
     if (task.classList.contains(text)) {
@@ -31,7 +36,7 @@ function filterTasks (e) {
 }
 
 
-// create a function to sum days to actual date
+// creo una funcion que agrega dias a la fecha actual
 function addDays (days) {
   let date = new Date();
   date.setDate(date.getDate() + days);
@@ -39,21 +44,24 @@ function addDays (days) {
   return date;
 }
 
-
 function saveTask (e) {
+  // evito que se envie el formulario
   e.preventDefault();
+
+  // obtengo los valores de los inputs y los guardo en variables
   let titulo = e.target.tituloTarea
   let descripcion = e.target.descripcionTarea
   let tiempo = e.target.tiempo
   let emojiTarea = e.target.emojiTarea
 
+  // valido que el titulo y el tiempo no esten vacios
   if (titulo.value === '' && tiempo.value === '') {
     alert('Minimo agregá un titulo y un tiempo');
   } else {
-    // create a new task object
-    console.log(tiempo.value)
+    // le sumo el tiempo que seteo el usuario a la fecha actual
     let getTiempo = addDays(parseInt(tiempo.value))
 
+    // creo un objeto con los valores de los inputs
     let newTask = {
       titulo: titulo.value,
       descripcion: descripcion.value,
@@ -61,41 +69,43 @@ function saveTask (e) {
       emoji: emojiTarea.value,
       done: false
     }
-    // add the new task to the array
+    // agrego el objeto al array de tareas
     tasks.push(newTask);
-    // save the new task to the local storage
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    // get the tasks from the local storage
 
+    // guardo el array de tareas en el local storage
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // obtengo las tareas del local storage y las muestro en pantalla
     getTasks();
 
+    // reseteo el formulario
     form.reset();
   }
 }
 
+// funcion que obtiene las tareas del local storage y las muestra en pantalla
 function getTasks () {
   tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   let html = '';
 
-
-  // esta función calcula el tiempo que queda para la tarea
+  // esta función calcula el tiempo que queda para la tarea y devuelve un array con los dias, horas y minutos
   function timeLeft (tiempo) {
     let date = new Date();
     let tiempoDate = new Date(tiempo);
     let timeLeft = tiempoDate - date;
-    console.log(date)
-    console.log(tiempoDate)
-    console.log(timeLeft)
     let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
     let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
     return [days, hours, minutes];
   }
 
+  // recorro el array de tareas y creo un html con cada tarea
   tasks.forEach((task, index) => {
+
     let tiempo = timeLeft(task.tiempo);
     let background = '';
 
+    // le agrego una clase al html dependiendo de la cantidad de dias que quedan para la tarea y un orden para que se muestren en orden (gracias flexbox)
     if (tiempo[0] < 2) {
       background = 'bg-danger';
       order = 'order-1';
@@ -123,9 +133,11 @@ function getTasks () {
         </div>
       </div>`
   });
+
+  // muestro las tareas en pantalla
   taskList.innerHTML = html;
 }
 
 getTasks();
 
-form.addEventListener('submit', saveTask);
+
