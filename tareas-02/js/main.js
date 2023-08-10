@@ -124,7 +124,7 @@ function getTasks () {
       order = 'order-3';
     }
 
-    html += `<div class="col task ${order} task-${background}">
+    html += `<div class="col col-12 col-sm-6 col-md-6 col-xl-3 task ${order} task-${background}">
         <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg ${background}">
           <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
             <h3 class="mb-4 display-7 lh-1 fw-bold d-flex">
