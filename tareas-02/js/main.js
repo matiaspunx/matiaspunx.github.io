@@ -3,12 +3,18 @@ const taskList = document.querySelector('.collection');
 const addTask = document.querySelector('#addTask');
 const filtro = document.querySelector('#filtro');
 const empty = document.querySelector('#empty');
+const cerrarForm = document.querySelector('#cerrarForm');
 
 // obtengo las tareas del local storage o un array vacio
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 // le agrego un evento click al boton de agregar tarea
 addTask.addEventListener('click', () => {
+  form.classList.toggle('d-none');
+});
+
+// le agrego un evento click al boton de cerrar el formulario
+cerrarForm.addEventListener('click', () => {
   form.classList.toggle('d-none');
 });
 
@@ -136,6 +142,9 @@ function getTasks () {
                 <span class="p-1 small">En ${tiempo[0]}d y ${tiempo[1]}h tenés que hacer esta tarea</span>
               </li>
             </ul>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-outline-light btn-sm" onclick="deleteTask(${index})">Eliminar</button>
+            </div>
           </div>
         </div>
       </div>`
@@ -145,6 +154,19 @@ function getTasks () {
   taskList.innerHTML = html;
 }
 
+// creo una funcion para eliminar una tarea
+function deleteTask (index) {
+  // elimino la tarea del array
+  tasks.splice(index, 1);
+
+  // guardo el array de tareas en el local storage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+  // obtengo las tareas del local storage y las muestro en pantalla
+  getTasks();
+}
+
+// ejecuto la funcion getTasks
 getTasks();
 
 
