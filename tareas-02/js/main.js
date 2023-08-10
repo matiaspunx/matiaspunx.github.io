@@ -2,6 +2,7 @@ const form = document.querySelector('#form');
 const taskList = document.querySelector('.collection');
 const addTask = document.querySelector('#addTask');
 const filtro = document.querySelector('#filtro');
+const empty = document.querySelector('#empty');
 
 // obtengo las tareas del local storage o un array vacio
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -87,6 +88,12 @@ function saveTask (e) {
 function getTasks () {
   tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   let html = '';
+
+  if (tasks.length === 0) {
+    empty.classList.remove('d-none');
+  } else {
+    empty.classList.add('d-none');
+  }
 
   // esta función calcula el tiempo que queda para la tarea y devuelve un array con los dias, horas y minutos
   function timeLeft (tiempo) {
