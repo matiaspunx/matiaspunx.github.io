@@ -1,4 +1,4 @@
-const cacheName = 'Temporas';
+const cacheName = '📱Tareapp!';
 
 // Cache all the files to make a PWA
 self.addEventListener('install', e => {
@@ -7,9 +7,9 @@ self.addEventListener('install', e => {
       // Our application only has two files here index.html and manifest.json
       // but you can add more such as style.css as your app grows
       return cache.addAll([
-        './',
-        './index.html',
-        './manifest.json'
+        './tareas-02/',
+        './tareas-02/index.html',
+        './tareas-02/manifest.json'
       ]);
     })
   );
