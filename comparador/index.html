@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📈 Comparador de planes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    .plan {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Comparador de planes</h1>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+
+        <div class="select-holder d-flex justify-content-around align-items-center">
+          <div class="select">
+            <select name="select" id="select">
+              <option value="plan1" selected>Plan 1</option>
+              <option value="plan3">Plan 3</option>
+              <option value="plan4">Plan 4</option>
+            </select>
+          </div>
+
+          <div class="select">
+            <select name="select2" id="select2">
+              <option value="plan2" selected>Plan 2</option>
+              <option value="plan3">Plan 3</option>
+              <option value="plan4">Plan 4</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div>
+          <div class="item d-flex align-items-center">
+            <div class="titulo">Titulo 1</div>
+            <div class="planes">
+              <div class="plan plan1">items plan 1</div>
+              <div class="plan plan2">items plan 2</div>
+              <div class="plan plan3">items plan 3</div>
+              <div class="plan plan4">items plan 4</div>
+            </div>
+          </div>
+          <div class="item d-flex align-items-center">
+            <div class="titulo">Titulo 2</div>
+            <div class="planes">
+              <div class="plan plan1">items plan 1</div>
+              <div class="plan plan2">items plan 2</div>
+              <div class="plan plan3">items plan 3</div>
+              <div class="plan plan4">items plan 4</div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <script>
+    // create a function to populate selects with plans names the plan selected in select 1 cant be selected in select 2 and viceversa
+    function populateSelects () {
+      // get the selects
+      const select1 = document.getElementById('select');
+      const select2 = document.getElementById('select2');
+
+      // get the options
+      const options1 = select1.querySelectorAll('option');
+      const options2 = select2.querySelectorAll('option');
+
+      // get the plans
+      const plans = document.querySelectorAll('.plan');
+
+      // get the plans names
+      const plansNames = [];
+      plans.forEach(plan => {
+        plansNames.push(plan.classList[1]);
+      });
+      // populate selects
+      options1.forEach(option => {
+        if (plansNames.includes(option.value)) {
+          option.style.display = 'block';
+        } else {
+          option.style.display = 'none';
+        }
+      });
+      options2.forEach(option => {
+        if (plansNames.includes(option.value)) {
+          option.style.display = 'block';
+        } else {
+          option.style.display = 'none';
+        }
+      });
+    }
+
+    populateSelects();
+  </script>
+</body>
+
+</html>

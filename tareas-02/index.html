@@ -42,15 +42,26 @@
             <input type="text" class="form-control" id="tituloTarea">
           </div>
           <div class="mb-3">
-            <label for="emojiTarea" class="form-label">Emoji</label>
-            <input type="text" class="form-control" id="emojiTarea">
+            <div class="row">
+              <div class="col">
+                <label for="emojiTarea" class="form-label">Emoji</label>
+                <input type="text" class="form-control picmo__emoji-button empty" id="emojiTarea" readonly>
+              </div>
+              <div class="col col-3 col-md-2 d-flex align-items-end">
+                <div class="triggerContainer position-relative">
+                  <button type="button" class="btn btn-secondary trigger" id="trigger">
+                    Elegir emoji
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="mb-3">
             <label for="descTarea" class="form-label">Descripción</label>
             <textarea class="form-control" id="descripcionTarea"></textarea>
           </div>
           <div class="mb-3">
-            <label for="emojiTarea" class="form-label">Volver a hacer en:</label>
+            <label for="tiempo" class="form-label">Volver a hacer en:</label>
             <select name="tiempo" id="tiempo">
               <option value="">Cada cuando dias...</option>
               <option value="1">1 día</option>
@@ -103,6 +114,8 @@
       </div> -->
     </div>
   </div>
+
+  <script type="module" src="js/emojis.js"></script>
   <script src="js/main.js"></script>
 </body>
 
